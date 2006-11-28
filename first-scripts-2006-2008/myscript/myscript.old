@@ -1,0 +1,388 @@
+#!/bin/bash
+
+# ##############################
+#           VARIABLES
+# ##############################
+FILENAME=$(basename $0)
+PROGNAME="MyScript"
+PROGVER="1.0.060827"
+PROGAUTH="Radu Maier"
+PROGAUTHE="oimoroi@gmail.com"
+PROGDESCR="My first shell script!"
+PROGHIST="2006-08-27: made te script work and improved the menus and functionality\n2006-08-26: the first version of the script. didn't even work"
+FULLNAME="$PROGNAME version $PROGVER, created by $PROGAUTH"
+PROGUSER=$USER
+#PROGUSERDATE=$(date +"%x %r %Z")
+PROGUSERDATE=$(date +"%Y-%m-%d %H:%M:%S")
+# ##############################
+#           // VARIABLES
+# ##############################
+
+# ##############################
+#           FUNCTIONS
+# ##############################
+function exit_error
+{
+#       EXIT WITH ERRORS
+    echo "$1" 1>&2
+    exit 1
+}
+
+function exit_ok
+{
+#        EXIT WITHOUT ERRORS
+    clear
+    echo "     - Thank you for using $PROGNAME! -"
+    echo ""
+    exit 0
+}
+
+function press_enter
+{
+#       PRESS ENTER
+    echo -n "Press ENTER to continue"
+    read
+    clear
+}
+
+function release_info
+{
+    # FIND RELEASE FILES IN ETC
+    if ls /etc/[!lsb]*release 1>/dev/null 2>&1; then
+        for i in /etc/[!lsb]*release; do
+            head -n 1 $i
+        done
+    fi
+}
+
+function xampp_start
+{
+#        START XAMPP
+    clear
+    echo "                          START XAMPP SERVER                                    "
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Enter ROOT "
+    su -c '/opt/lampp/lampp start;exit'
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Done | "; press_enter
+}
+
+function xampp_stop
+{
+#        STOP XAMPP
+    clear
+    echo "                           STOP XAMPP SERVER                                    "
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Enter ROOT "
+    su -c '/opt/lampp/lampp stop;exit'
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Done | "; press_enter
+}
+
+function xampp_security
+{
+#  TEST XAMPP SECURITY
+    clear
+    echo "                     CHECK XAMPP SERVER SECURITY                                "
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Enter ROOT "
+    su -c '/opt/lampp/lampp security ;exit'
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Done | "; press_enter
+}
+
+function xampp_php
+{
+#  TEST XAMPP PHP VERSION
+    clear
+    echo "                    CHECK XAMPP SERVER PHP VERSION                              "
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Enter ROOT "
+    su -c '/opt/lampp/lampp phpstatus;exit'
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Done | "; press_enter
+}
+
+function net_test
+{
+#  TEST NETWORK CONNECTION
+    clear
+    echo "                       TEST INTERNET CONNECTION                                 "
+    echo "--------------------------------------------------------------------------------"
+    echo "MAIN SERVER:"
+    echo "------------"
+    ping -a -c 4 -v 88.158.183.1
+    echo ""
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Page 1 of 4 | "; press_enter
+    clear
+    echo "                       TEST INTERNET CONNECTION                                 "
+    echo "--------------------------------------------------------------------------------"
+    echo "GATEWAY:"
+    echo "--------"
+    ping -a -c 4 -v 88.158.183.129
+    echo ""
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Page 2 of 4 | "; press_enter
+    clear
+    echo "                       TEST INTERNET CONNECTION                                 "
+    echo "--------------------------------------------------------------------------------"
+    echo "DNS1:"
+    echo "-----"
+    ping -a -c 4 -v 88.158.182.1
+    echo ""
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Page 3 of 4 | "; press_enter
+    clear
+    echo "                       TEST INTERNET CONNECTION                                 "
+    echo "--------------------------------------------------------------------------------"
+    echo "DNS2:"
+    echo "-----"
+    ping -a -c 4 -v 88.158.182.2
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Page 4 of 4 | "; press_enter
+}
+
+function mount_iso
+{
+#  MOUNT SuSE DVD ISO
+    clear
+    echo "                          MOUNT SuSE DVD ISO                                    "
+    echo "--------------------------------------------------------------------------------"
+    if ls /mnt/iso/README 1>/dev/null 2>&1; then
+        echo "DEVICE ALREADY MOUNTED!"
+    else
+        echo -n "Enter ROOT "
+        su -c 'mount -o loop -t iso9660 -r -v /windows/E/linux/kit/suse/SuSE-Linux-10.0-0-PromoDVD-i386.iso /mnt/iso;exit'
+    fi
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Page 1 of 1 | "; press_enter
+}
+
+function umount_iso
+{
+#  UNMOUNT SuSE DVD ISO
+    clear
+    echo "                         UNMOUNT SuSE DVD ISO                                   "
+    echo "--------------------------------------------------------------------------------"
+    if ls /mnt/iso/README 1>/dev/null 2>&1; then
+        echo -n "Enter ROOT "
+        su -c 'umount -v /mnt/iso;exit'
+    else
+        echo "DEVICE ALREADY UNMOUNTED!"
+    fi
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Done | "; press_enter
+}
+
+function system_info
+{
+#  SYSTEM INFORMATION
+    clear
+    echo "                          SYSTEM INFORMATION                                    "
+    echo "--------------------------------------------------------------------------------"
+    echo "release info:          $(release_info)"
+    echo ""
+    echo "operating system:      $(uname -o)"
+    echo ""
+    echo "kernel name:           $(uname -s)"
+    echo ""
+    echo "kernel release:        $(uname -r)"
+    echo ""
+    echo "kernel version:        $(uname -v)"
+    echo ""
+    echo "machine hardware name: $(uname -m)"
+    echo ""
+    echo "hardware platform:     $(uname -i)"
+    echo ""
+    echo "processor type:        $(uname -p)"
+    echo ""
+    echo "hostname:              $HOSTNAME"
+    echo ""
+    echo "current user:          $PROGUSER"
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Page 1 of 3 | "; press_enter
+    clear
+    echo "                          SYSTEM INFORMATION                                    "
+    echo "--------------------------------------------------------------------------------"
+    echo "free disk space:"
+    echo "----------------"
+    echo  "$(df)"
+    echo ""
+    echo ""
+    echo "memory:"
+    echo "-------"
+    echo "$(free)"
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Page 2 of 3 | "; press_enter
+    clear
+    echo "                          SYSTEM INFORMATION                                    "
+    echo "--------------------------------------------------------------------------------"
+    echo "users:"
+    echo "------"
+    echo "$(w)"
+    echo ""
+    echo "uptime:"
+    echo "-------"
+    echo "$(uptime)"
+    echo ""
+    echo "current time:"
+    echo "-------------"
+    echo "$PROGUSERDATE"
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Page 3 of 3 | "; press_enter
+}
+
+function help_about
+{
+#  HELP / ABOUT
+    clear
+    echo "                             HELP / ABOUT                                       "
+    echo "--------------------------------------------------------------------------------"
+    echo "USAGE:"
+    echo "    myscript [-OPTION(numeric)]"
+    echo "    or"
+    echo "    myscript [--OPTION(text)]"
+    echo ""
+    echo "    with no OPTION, or with an invalid one, the menu is displayed"
+    echo ""
+    echo "OPTIONS"
+    echo "    -1 | --start     Start XAMPP Server"
+    echo "    -2 | --stop      Stop XAMPP Server"
+    echo "    -3 | --secure    Check XAMPP Server security settings"
+    echo "    -4 | --php       Check PHP Version of XAMPP Server"
+    echo "    -5 | --test      Test Internet Connection"
+    echo "    -6 | --mount     Mount virtual drive with SuSE Linux insallation DVD"
+    echo "    -7 | --umount    Unmount virtual drive with SuSE Linux insallation DVD"
+    echo "    -8 | --info      Display system information"
+    echo "    -9 | --about     The Help / About menu"
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Page 1 of 2 | "; press_enter
+    clear
+    echo "                             HELP / ABOUT                                       "
+    echo "--------------------------------------------------------------------------------"
+    echo "FILE NAME:           $FILENAME"
+    echo ""
+    echo "PROGRAM NAME:        $PROGNAME"
+    echo ""
+    echo "PROGRAM VERSION:     $PROGVER"
+    echo ""
+    echo "AUTHOR:              $PROGAUTH"
+    echo ""
+    echo "AUTHOR E-MAIL:       $PROGAUTHE"
+    echo ""
+    echo "PROGRAM DESCRIPTION: $PROGDESCR"
+    echo ""
+    echo "VERSION HISTORY:"
+    echo -e "$PROGHIST"
+    echo "--------------------------------------------------------------------------------"
+    echo -n "Page 2 of 2 | "; press_enter
+}
+
+function main_menu
+{
+#        MENU VERSION
+    run_mode=menu
+    selection=
+    clear
+    until [ "$selection" = "0" ]; do
+        echo "                               MYSCRIPT                                         "
+        echo "--------------------------------------------------------------------------------"
+        echo "$FULLNAME"
+        echo "--------------------------------------------------------------------------------"
+        echo "OPTIONS:"
+        echo ""
+        echo "          1 ... Start XAMPP Server"
+        echo "          2 ... Stop XAMPP Server"
+        echo "          3 ... Check XAMPP Server security settings"
+        echo "          4 ... Check PHP Version of XAMPP Server"
+        echo "          5 ... Test Internet Connection"
+        echo "          6 ... Mount virtual drive with SuSE Linux insallation DVD"
+        echo "          7 ... Unmount virtual drive with SuSE Linux insallation DVD"
+        echo "          8 ... Display system information"
+        echo "          9 ... The Help / About menu"
+        echo "          0 ... Exit"
+        echo "--------------------------------------------------------------------------------"
+        echo -e -n "\aenter a number: "
+        read selection
+        case $selection in
+            1 ) xampp_start;;
+            2 ) xampp_stop;;
+            3 ) xampp_security;;
+            4 ) xampp_php;;
+            5 ) net_test;;
+            6 ) mount_iso;;
+            7 ) umount_iso;;
+            8 ) system_info;;
+            9 ) help_about;;
+            0 ) exit_ok;;
+            * ) echo "Please enter a valid number!"; press_enter
+        esac
+    done
+}
+# ##############################
+#           // FUNCTIONS
+# ##############################
+
+# ##############################
+#           CONDITIONS
+# ##############################
+if [ $(id -u) = "0" ]; then
+#        DO NOT EXECUTE AS ROOT
+    exit_error "You are logged in as root! You should't have done that!"
+fi
+# ##############################
+#          //  CONDITIONS
+# ##############################
+
+# ##############################
+#          MENU OR COMMAND LINE
+# ##############################
+if [ "$1" != "" ]; then
+    while [ "$1" != "" ]; do
+        case $1 in
+            -1 | --start ) xampp_start
+                            main_menu
+                           ;;
+            -2 | --stop ) xampp_stop
+                           main_menu
+                           ;;
+            -3 | --secure ) xampp_security
+                             main_menu
+                             ;;
+            -4 | --php ) xampp_php
+                             main_menu
+                             ;;
+            -5 | --test ) net_test
+                             main_menu
+                             ;;
+            -6 | --mount ) mount_iso
+                             main_menu
+                             ;;
+            -7 | --umount ) umount_iso
+                             main_menu
+                             ;;
+            -8 | --info ) system_info
+                          main_menu
+                          ;;
+            -9 | --about ) help_about
+                             main_menu
+                             ;;
+            * )           main_menu
+                          ;;
+        esac
+    done
+else
+    main_menu
+fi
+# ##############################
+#          MENU OR COMMAND LINE
+# ##############################
+
+# ##############################
+#          THE MENU
+# ##############################
+
+# ##############################
+#          // THE MENU
+# ##############################
