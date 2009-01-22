@@ -1,0 +1,21 @@
+http://stackoverflow.com/questions/6963766/pagination-in-php
+
+Ok, I had this question too once. This is basically the logic behind the pagination, I am not going to write code but if you need it let us know.
+
+Basically, you need two values to create a pagination, a limit and a offset.
+
+The limit is the amount of items your are displaying at the same time.
+The offset is from where you started your query.
+So, let's say you have 5 items in each page and 25 items total.
+
+In your query, you have to limit 5,0 (the amount of items and the position the query will start).
+
+Now, if you divide 5(limit)/25(total) and you'll get 5 (amount of pages).
+
+Now in page 0 (the start) you can get the offset by multiplying the page number with the limit, so 0 (page) * 5 (limit) gives you 0 (in the first page you start from the offset 0).
+
+Now in the 3rd page, you multiply 3(page) * 5 (limit) it gives you 15, which means in page 3 (or four if you take into account that you actually started at page 0) you will display from offset 16 to 20.
+
+Finally in page 4 (which to your users will be page 5 because they started at page 1, not page 0) you will display from offset 21 to 25 which are all the items in your query.
+
+I hope after reading this you understand the logic behind pagination, if you need help with the code, again, just let us know.

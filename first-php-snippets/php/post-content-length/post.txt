@@ -1,0 +1,127 @@
+@oceans:
+Iti multumesc pentru raspuns, intre timp gasisem si eu solutia cu serverul si inca una.
+Din pacate nu pot accesa solutiile de la experts-exchange, as fi curios ce s-a discutat.
+Banuiesc ca nu esti dispus sa faci un copy/paste sau un print screen? :D
+
+Va prezint concluziile la care am ajuns, in speranta ca vor fi de folos cuiva vreodata:
+
+[b]1. [u]Metoda Apache[/u][/b]
+
+[b]Situatia:[/b]
+Se doreste ca procesarea scriptului PHP sa nu mai aiba loc daca apare "conditia".
+
+[b]Descriere:[/b]
+Directiva LimitRequestBody permite intreruperea procesarii cererii HTTP in cazul in care aceasta depaseste o anumita limita.
+Codul HTTP returnat este 413, "Request Entity Too Large".
+Impreuna cu directiva ErrorDocument permite afisarea unui mesaj (personalizat) in cazul in care apare "conditia".
+Consider ca reprezinta o solutie foarte buna pentru protejarea generala a scripturilor PHP.
+
+[b]Exemplu:[/b] (fisier .htaccess)
+[code]
+# Nu permite o cerere mai mare de 2MB
+LimitRequestBody 2097152
+# Afisarea unui mesaj personalizat pentru codul de eroare curent
+ErrorDocument 413 /calea/catre/directorul/cu/mesajul.htm
+[/code]
+
+[b]Avantaje:[/b]
+Scriptul PHP nu este afectat in nici un fel. Deoarece nu va mai fi procesat, nu mai este generat nici warning-ul.
+Nu necesita configurari sau module suplimentare in Apache, functioneaza cu setarile default.
+Se poate personaliza mesajul de eroare aparut.
+
+[b]Dezavantaje:[/b]
+Necesita serverul web Apache, cel putin versiunea 1.3.2. Pentru cei ce folosesc IIS nu stiu daca exista ceva asemanator.
+Personalizarea mesajului de eroare este de fapt "generala" pentru WebSite-ul / directorul respectiv, nu pentru fiecare script PHP in parte.
+Cand se stabileste limita admisa, trebuie avut in vedere faptul ca LimitRequestSize se refera la toata cererea HTTP nu doar la partea de POST.
+
+[b]Resurse:[/b]
+LimitRequestBody: [url]http://httpd.apache.org/docs/1.3/mod/core.html#limitrequestbody[/url]
+ErrorDocument: [url]http://httpd.apache.org/docs/2.0/mod/core.html#errordocument[/url]
+Coduri HTTP: [url]http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html[/url]
+
+[b]2. [u]Metoda PHP[/u][/b]
+
+[b]Situatia:[/b]
+Se doreste procesarea scriptului PHP chiar daca apare "conditia", si nu reprezinta o problema warning-ul generat.
+
+[b]Descriere:[/b]
+Functia error_get_last() afiseaza informatii despre ultima eroare PHP aparuta.
+Folosind aceasta functie, putem verifica daca exista warning-ul nostru si sa actionam corespunzator.
+Desi nu este prea eleganta, consider ca este cea mai buna solutie.
+
+[b]Exemplu:[/b] (fisier php)
+[php]
+<?php
+/**
+ * Daca functia error_get_last exista, 
+ * variabila $error va contine ultima eroare aparuta
+ */
+$error = function_exists('error_get_last') ? error_get_last() : NULL;
+/**
+ * Daca avem o eroare si este cea pe care o cautam...
+ */
+if(is_array($error) && (FALSE !== strpos($error['message'], 'POST Content-Length of')))
+{
+  /**
+   * Facem ceva
+   */
+   trigger_error('Fisierul este prea mare', E_USER_ERROR);
+}
+?>
+[/php]
+
+[b]Avantaje:[/b]
+Intr-un fel se poate de fapt "prinde" eroarea, nu in sensul ca nu mai apare, ci in sensul ca putem verifica prezenta ei si actiona corespunzator.
+Se lucreaza direct in PHP, nu este nevoie a se umbla la setarile serverului.
+Se poate verifica daca apare "conditia" pentru scriptul PHP curent si se poate actiona corespunzator.
+
+[b]Dezavantaje:[/b]
+Necesita cel putin versiunea 5.2 a PHP
+Va fi generat warning-ul.
+Variabilele $_POST si $_FILES sunt goale, desi cererea HTTP exista (se poate retransmite formularul cu refresh din browser).
+Este necesar sa nu existe alta eroare aparuta in urma executiei scriptului PHP.
+
+[b]Resurse:[/b]
+Functia error_get_last(): [url]http://www.php.net/error_get_last[/url]
+
+[b][u]Pentru teste:[/b][/u] (reproducerea problemei, etc)
+
+[code]
+<?php
+/**
+ * Daca functia error_get_last exista, 
+ * variabila $error va contine ultima eroare aparuta
+ */
+$error = function_exists('error_get_last') ? error_get_last() : NULL;
+/**
+ * Daca avem o eroare si este cea pe care o cautam...
+ */
+if(is_array($error) && (FALSE !== strpos($error['message'], 'POST Content-Length of')))
+{
+  /**
+   * Facem ceva
+   */
+   //trigger_error('Fisierul este prea mare', E_USER_ERROR);
+}
+?>
+<html>
+<head>
+  <title>test</title>
+</head>
+<body>
+<form enctype="multipart/form-data" name="myForm" id="myForm" action="" method="post">
+  <input type="text" name="myText" id="myText" maxlength="30" value="" /><br />
+  <input type="hidden" name="MAX_FILE_SIZE" value="2097152" /><!-- 2MB -->
+  <input type="file" name="myFile" id="myFile" size="1" /><br />
+  <input type="submit" name="mySubmit" id="mySubmit" value="Submit" />
+</form>
+<pre>
+post: <?php var_dump($_POST); ?>
+files: <?php var_dump($_FILES); ?>
+error: <?php var_dump($error); ?>
+</pre>
+</body>
+</html>
+[/code]
+
+Desi am pus "rezolvat" la acest thread, as fi interesat daca mai are cineva ceva pareri in legatura cu aceasta problema.

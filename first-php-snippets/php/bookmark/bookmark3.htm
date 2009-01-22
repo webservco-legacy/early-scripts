@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<script language="JavaScript1.2" type="text/javascript">
+ function CreateBookmarkLink() {
+
+ title = "Webpage Title"; 
+  // Blogger - Replace with <$BlogItemTitle$> 
+  // MovableType - Replace with <$MTEntryTitle$>
+
+ url = "http://www.gmail.com";
+  // Blogger - Replace with <$BlogItemPermalinkURL$> 
+  // MovableType - Replace with <$MTEntryPermalink$>
+  // WordPress - <?php bloginfo('url'); ?>
+
+	if (window.sidebar) { // Mozilla Firefox Bookmark
+		window.sidebar.addPanel(title, url,"");
+	} else if( window.external ) { // IE Favorite
+		window.external.AddFavorite( url, title); }
+	else if(window.opera && window.print) { // Opera Hotlist
+		return true; }
+ }
+
+ if (window.external) {
+  document.write('<a href = "javascript:CreateBookmarkLink()");">Add to Favorites</a>'); 
+  } else  if (window.sidebar) {
+  document.write('<a href = "javascript:CreateBookmarkLink()");">Bookmark Page</a>'); 
+ } else if (window.opera && window.print) {	
+   document.write('<a href = "javascript:CreateBookmarkLink()");">Add Bookmark</a>');
+ } 
+</script>
+</BODY>
+</HTML>
