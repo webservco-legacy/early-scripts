@@ -8,29 +8,29 @@
 // Be sure to fill the $bads array with the bad words you want filtered.
 function BadWordFilter(&$text, $replace)
 {
-	//fill this array with the bad words you want to filter and their replacements
-	$bads = array (
-		array("butt","b***"),
-		array("poop","p***"),
-		array("crap","c***")
-	);
+    //fill this array with the bad words you want to filter and their replacements
+    $bads = array (
+        array("butt","b***"),
+        array("poop","p***"),
+        array("crap","c***")
+    );
 
-	if($replace==1) {								//we are replacing
-		$remember = $text;
-		
-		for($i=0;$i<sizeof($bads);$i++) {			//go through each bad word
-			$text = eregi_replace($bads[$i][0],$bads[$i][1],$text); //replace it
-		}
+    if($replace==1) {								//we are replacing
+        $remember = $text;
+        
+        for($i=0;$i<sizeof($bads);$i++) {			//go through each bad word
+            $text = eregi_replace($bads[$i][0],$bads[$i][1],$text); //replace it
+        }
 
-		if($remember!=$text) return 1; 				//if there are any changes, return 1
-		
-	} else {										//we are just checking
-	
-		for($i=0;$i<sizeof($bads);$i++) {			//go through each bad word
-			if(eregi($bads[$i][0],$text)) return 1; //if we find any, return 1
-		}	
-		
-	}
+        if($remember!=$text) return 1; 				//if there are any changes, return 1
+        
+    } else {										//we are just checking
+    
+        for($i=0;$i<sizeof($bads);$i++) {			//go through each bad word
+            if(eregi($bads[$i][0],$text)) return 1; //if we find any, return 1
+        }	
+        
+    }
 }
 
 //this will replace all bad words with their replacements. $any is 1 if it found any

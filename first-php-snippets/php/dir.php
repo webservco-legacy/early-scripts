@@ -21,19 +21,19 @@ function lsdir($dir) {
 }
 
 function _lsDir($dir, $dirs=TRUE, $files=FALSE)
-	{
-		$slash = ($dir[strlen($dir)-1]) != '/' ? FALSE : TRUE;
+    {
+        $slash = ($dir[strlen($dir)-1]) != '/' ? FALSE : TRUE;
     $dir = $slash ? $dir : $dir.'/';
     
     $list = array('d'=>array(), 'f'=>array());
-		$i = 0;
-		$j = 0;
-		if(is_dir($dir))
-		{
+        $i = 0;
+        $j = 0;
+        if(is_dir($dir))
+        {
       if($dh = opendir($dir))
-			{
-				while (FALSE !== ($file = readdir($dh)))
-				{
+            {
+                while (FALSE !== ($file = readdir($dh)))
+                {
           if($file != '.' && $file != '..')
           {
             if(strpos($file, '.') !== 0)
@@ -50,12 +50,12 @@ function _lsDir($dir, $dirs=TRUE, $files=FALSE)
               }
             }
           }
-				}
-				closedir($dh);
-			}
-		}
-		return $list;
-	}
+                }
+                closedir($dh);
+            }
+        }
+        return $list;
+    }
 $dir = 'e:/home/devel/workspace/RudWEb/rudweb/intl/';
   $dirs = _lsDir($dir, FALSE, TRUE);
 

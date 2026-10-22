@@ -18,22 +18,22 @@ function OLD_array_insert($arr,$ins) {
 function array_insert($arr,$ins) {
     if (is_array($arr) && is_array($ins)) 
     {
-    	foreach ($ins as $k => $v) {
-      	if (isset($arr[$k]) && is_array($v) && is_array($arr[$k]))
-      	{ 
-      	$arr[$k] = array_insert($arr[$k],$v);
-      	}
-      	else
-      	{
-      		$arr[$k] = $v;
-      	}
-    	}
+        foreach ($ins as $k => $v) {
+        if (isset($arr[$k]) && is_array($v) && is_array($arr[$k]))
+        { 
+        $arr[$k] = array_insert($arr[$k],$v);
+        }
+        else
+        {
+            $arr[$k] = $v;
+        }
+        }
     }
     return($arr);
 }
 
 $a = array(
-	'dev'=>array(), 'test'=>array(), 'prod'=>array()
+    'dev'=>array(), 'test'=>array(), 'prod'=>array()
 );
 
 $x = array();

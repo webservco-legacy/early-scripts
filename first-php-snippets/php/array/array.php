@@ -3,23 +3,23 @@ error_reporting(6143);
 
 function getValue($array, $value)
 {
-	$parts = explode('.', $value);
-	$total = count($parts);
-	//XXX
-	return tester($array, $parts);
+    $parts = explode('.', $value);
+    $total = count($parts);
+    //XXX
+    return tester($array, $parts);
 }
 
 function tester($array, $values)
 {
-	$tv = count($values);
-		
-	if ( ( $tv > 0 ) && array_key_exists($values[0], $array) )
-	{
-		$val = $values[0];
-		array_shift($values);
-		return tester($array[$val], $values); 
-	}
-	return $array;
+    $tv = count($values);
+        
+    if ( ( $tv > 0 ) && array_key_exists($values[0], $array) )
+    {
+        $val = $values[0];
+        array_shift($values);
+        return tester($array[$val], $values); 
+    }
+    return $array;
 }
 
 $a['path']['to']['file'] = '/path/to/file.ini';
