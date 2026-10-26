@@ -1,0 +1,117 @@
+<!-- --------------------------------------------------------------------------------------------------------------
+    TABEL ADAUGARE PRODUSE
+    -------------------------------------------------------------------------------------------------------------- -->        
+<table class="nirP" align="center" cellpadding="3" cellspacing="1" border="0" width="750">
+<tr class=gri>
+    <td class="nirP1">
+    Tip Podus
+    </td>
+    <td class="nirP1">
+    Materialul
+    </td>
+    <td class="nirP1">
+    Barcode
+    </td>
+    <td class="nirP1">
+    U.M.
+    </td>
+    <td class="nirP1">
+    Cantitate doc.
+    </td>
+    <td class="nirP1">
+    Cantitate receptionat&#259;
+    </td>
+</tr>
+<tr>
+    <td class="nirP2">
+    <select name="tipprodus" id="tipprodus" size="1">
+    <option value="0" selected>Selecta&#355;i</option><option value="1">Sistem de calcul</option><option value="2">Procesor</option><option value="3">Plac&#259; de baz&#259;</option><option value="4">Memorie</option><option value="5">Hard Disk</option><option value="6">Unitate optic&#259;</option><option value="7">Carcas&#259;</option><option value="8">Monitor</option><option value="9">Tast. &#351;i mouse</option><option value="10">Periferice</option><option value="11">Diverse</option>    </select>
+    </td>
+    <td class="nirP2">
+    <input type="text" name="material" id="material" value="" size="30" maxlength="50">
+    </td>
+    <td class="nirP2">
+    <input type="text" name="barcode" id="barcode" value="" size="13" maxlength="13">
+    </td>
+    <td class="nirP2">
+    <input type="text" name="um" id="um" value="buc" size="3" maxlength="10">
+    </td>
+    <td class="nirP2">
+    <input type="text" name="cantdoc" id="cantdoc" value="" size="3" maxlenght="5" onFocus="startCalcCant();startCalc();" onBlur="stopCalcCant();stopCalc();" onChange="MM_validateForm('cantdoc','','isNaN');return document.MM_returnValue" />
+    </td>
+    <td class="nirP2">
+    <input type="text" name="cantrec" id="cantrec" value="" size="3" maxlenght="5" onFocus="startCalc();" onBlur="stopCalc();" onChange="MM_validateForm('cantrec','','isNaN');return document.MM_returnValue" />
+    </td>
+</tr>
+</table>
+<table class="nirP" align="center" cellpadding="3" cellspacing="1" border="0" width="750">
+<tr class=gri>
+    <td class="nirP1">
+    Pre&#355; achizi&#355;ie
+    </td>
+    <td class="nirP1">
+    Adaos unitar
+    </td>
+    <td class="nirP1">
+    Adaos total
+    </td>
+    <td class="nirP1">
+    Pre&#355; unitar + adaos unitar
+    </td>
+    <td class="nirP1">
+    TVA (&#37;)
+    </td>
+    <td class="nirP1">
+    TVA unitar
+    </td>
+    <td class="nirP1">
+    TVA total
+    </td>
+    <td class="nirP1">
+    Valoare unitar&#259;
+    </td>
+    <td class="nirP1">
+    Valoare total&#259;
+    </td>
+</tr>
+<tr>
+    <td class="nirP2">
+    <input type="text" name="pretach" id="pretach" value="" size="5" maxlenght="9" onFocus="startCalc();" onBlur="stopCalc();" onChange="MM_validateForm('pretach','','isNaN');return document.MM_returnValue" />
+    </td>
+    <td class="nirP2">
+    <input type="text" name="adaosu" id="adaosu" value="" size="5" maxlenght="9" onFocus="startCalc();" onBlur="stopCalc();" onChange="MM_validateForm('adaosu','','isNaN');return document.MM_returnValue" />
+    </td>
+    <td class="nirP2">
+    <input class="readonly" type="text" name="adaost" id="adaost" value="" size="5" maxlenght="9" readonly />
+    </td>
+    <td class="nirP2">
+    <input class="readonly" type="text" name="pretauadu" id="pretauadu" value="" size="5" maxlenght="9" readonly />
+    </td>
+    <td class="nirP2">
+    <input type="text" name="tvap" id="tvap" value="19" size="3" maxlenght="3" onFocus="startCalc();" onBlur="stopCalc();" onChange="MM_validateForm('tvap','','isNaN');return document.MM_returnValue" />
+    </td>
+    <td class="nirP2">
+    <input class="readonly" type="text" name="tvau" id="tvau" value="" size="5" maxlenght="9" readonly />
+    </td>
+    <td class="nirP2">
+    <input class="readonly" type="text" name="tvat" id="tvat" value="" size="5" maxlenght="9" readonly />
+    </td>
+    <td class="nirP2">
+    <input class="readonly" type="text" name="valu" id="valu" value="" size="5" maxlenght="9" readonly />
+    </td>
+    <td class="nirP2">
+    <input class="readonly" type="text" name="valt" id="valt" value="" size="5" maxlenght="9" readonly />
+    </td>
+</tr>
+</table>
+<br>
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr> 
+      <td width="139"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image11','','http://88.158.183.248/gestiune_work/include/images/adauga_2.gif',1)"><img name="Image11" border="0" src="http://88.158.183.248/gestiune_work/include/images/adauga_1.gif" width="150" height="25" onClick= "submitf('formnir','nirmag.php?action=adauga')"></a></td>
+      <td width="139"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image12','','http://88.158.183.248/gestiune_work/include/images/modifica_2.gif',1)"><img name="Image12" border="0" src="http://88.158.183.248/gestiune_work/include/images/modifica_1.gif" width="150" height="25"  onClick= "submitf('formnir','nirmag.php?action=modifica')"></a></td>
+      <td width="139"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image13','','http://88.158.183.248/gestiune_work/include/images/sterge_2.gif',1)"><img name="Image13" border="0" src="http://88.158.183.248/gestiune_work/include/images/sterge_1.gif" width="150" height="25"  onClick= "submitf('formnir','nirmag.php?action=sterge')"></a></td>
+      <td width="149"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image14','','http://88.158.183.248/gestiune_work/include/images/reset_2.gif',1)"><img name="Image14" border="0" src="http://88.158.183.248/gestiune_work/include/images/reset_1.gif" width="150" height="25" onClick= "submitf('formnir','nirmag.php?action=anuleaza')"></a></td>
+    </tr>
+</table><!-- --------------------------------------------------------------------------------------------------------------
+    //TABEL ADAUGARE PRODUSE
+    -------------------------------------------------------------------------------------------------------------- -->

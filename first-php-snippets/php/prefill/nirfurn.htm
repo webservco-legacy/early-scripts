@@ -1,0 +1,166 @@
+<!-- --------------------------------------------------------------------------------------------------------------
+    TABEL PRINCIPAL
+    -------------------------------------------------------------------------------------------------------------- -->
+<table border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td class="nir0">
+<!-- --------------------------------------------------------------------------------------------------------------
+    TABEL DATE NIR
+    -------------------------------------------------------------------------------------------------------------- -->
+<table border="0" cellpadding="3" cellspacing="1">
+<tr>
+    <td class="nirT" colspan="2">
+    Date Recep&#355;ie
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Nota de recep&#355;ie
+        <br> 
+        numarul <font color="#ff0000">&#42;</font> :
+    </td>
+    <td class="nir2">
+        <input type="text" name="nrnir" id="nrnir" size="5" maxlength="9" value="" />
+        &nbsp;(41)
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Data recep&#355;iei
+        <br>
+        (ZZ/LL/AAAA) <font color="#ff0000">&#42;</font> :
+    </td>
+    <td class="nir2">
+        <input type="text" name="datanZ" id="datanZ" size="2" maxlength="2" value="" /> /
+        <input type="text" name="datanL" id="datanL" size="2" maxlength="2" value="" /> /
+        <input type="text" name="datanA" id="datanA" size="4" maxlength="4" value="" />
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Comisia <br />de recep&#355;ie (1):
+    </td>
+    <td class="nir2">
+        <input type="text" name="comisiarec1" id="comisiarec1" size="15" maxlength="30" value="" />
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Comisia <br />de recep&#355;ie (2):
+    </td>
+    <td class="nir2">
+        <input type="text" name="comisiarec2" id="comisiarec2" size="15" maxlength="30" value="" />
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Comisia <br />de recep&#355;ie (3):
+    </td>
+    <td class="nir2">
+        <input type="text" name="comisiarec3" id="comisiarec3" size="15" maxlength="30" value="" />
+    </td>
+</tr>
+</table>
+<!-- --------------------------------------------------------------------------------------------------------------
+    //TABEL DATE NIR
+    -------------------------------------------------------------------------------------------------------------- -->    
+</td>
+<td width="10" class="nir0">
+&nbsp; 
+</td>
+<td class="nir0">
+<!-- --------------------------------------------------------------------------------------------------------------
+    TABEL DATE DOCUMENT
+    -------------------------------------------------------------------------------------------------------------- -->
+<table border="0" cellpadding="3" cellspacing="1">
+<tr>
+    <td class="nirT" colspan="2">
+    Date Furnizor
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Furnizor <font color="#ff0000">&#42;</font> :
+        <br>
+        <a class="nir1" href="nirmag.php">(actualizeaz&#259; lista)</a>
+    </td>
+    <td class="nir2">
+       <select name="idfurn" id="idfurn" size="1">
+                        <option value="0" selected>Selecta&#355;i</option>
+                            <option value="1">Trade Mav S.R.L.</option>
+                </select>
+        <br>
+        <a class="nir1" href="javascript:loadWindow('../clientfurn/persjurnir.php','persjurnir','750','620')">(adaug&#259;)</a>
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Delegat <font color="#ff0000">&#42;</font> :
+        <br>
+        <a class="nir1" href="nirmag.php">(actualizeaz&#259; lista)</a>
+    </td>
+    <td class="nir2">
+        <select name="iddelegat" id="iddelegat" size="1">
+                        <option value="0" selected>Selecta&#355;i</option>
+                            <option value="1" >Mnerie&nbsp;Alin</option>
+                </select>
+        <br>
+        <a class="nir1" href="javascript:loadWindow('../clientfurn/persfiznir.php','persfiznir','750','410')">(adaug&#259;)</a>
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Data document (ZZ/LL/AAAA) <font color="#ff0000">&#42;</font> :
+    </td>
+    <td class="nir2">
+        <input type="text" name="datafZ" id="datafZ" size="2" maxlength="2" value="10" /> /
+        <input type="text" name="datafL" id="datafL" size="2" maxlength="2" value="07" /> /
+        <input type="text" name="datafA" id="datafA" size="4" maxlength="4" value="2006" />
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Num&#259;r document <font color="#ff0000">&#42;</font> :
+    </td>
+    <td class="nir2">
+        <input type="text" name="nrfact" id="nrfact" size="7" maxlength="7" value="" />
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Tip document <font color="#ff0000">&#42;</font> :
+    </td>
+    <td class="nir2">
+        <select name="tipfact" id="tipfact" size="1">
+            <option value="0" selected>Factur&#259;</option>
+            <option value="1">Bon de transfer</option>
+            <option value="2">Borderou de achizi&#355;ie</option>
+        </select>
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Vagon/Auto num&#259;rul :
+    </td>
+    <td class="nir2">
+        <input type="text" name="vagon" id="vagon" size="10" maxlength="20" value="" />
+    </td>
+</tr>
+<tr>
+    <td class="nir1">
+        Documente &#238;nso&#355;itoare :
+    </td>
+    <td class="nir2">
+        <input type="text" name="docins" id="docins" size="10" maxlength="20" value="" />
+    </td>
+</tr>
+</table>
+<!-- --------------------------------------------------------------------------------------------------------------
+    //TABEL DATE DOCUMENT
+    -------------------------------------------------------------------------------------------------------------- -->
+</td>
+</tr>
+</table>    
+<!-- --------------------------------------------------------------------------------------------------------------
+    //TABEL PRINCIPAL
+    -------------------------------------------------------------------------------------------------------------- -->

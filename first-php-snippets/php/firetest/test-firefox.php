@@ -1,0 +1,15 @@
+<?php
+echo $_SERVER['SERVER_SOFTWARE'];
+echo '<HR>';
+echo $_SERVER['HTTP_USER_AGENT'];
+echo '<HR>';
+$subject = $_SERVER['HTTP_USER_AGENT'];
+$pattern = "/Firefox\/[0-9.+]{1,10}/";
+$pattern000 = "/Firefox\//";
+$pattern00 = "/[Firefox\/[0-9.+]{1,10}/";
+$pattern0 = "/[Firefox]+[\/]+[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}/";
+preg_match($pattern, $subject, $matches);
+
+print_r($matches);
+
+?>

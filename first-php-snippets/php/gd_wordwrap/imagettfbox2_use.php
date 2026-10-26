@@ -1,0 +1,44 @@
+<?php
+$imgbg = 'notarec.png';
+header("Content-type: image/png");
+$img = imagecreatefrompng($imgbg);
+$black = imagecolorallocate($img, 0, 0, 0);
+$font = 'arial.ttf';
+
+$x = 10;
+$y = 100;
+$width = 200;
+$color = $black;
+$text = 'textul de afisat word wrap adica pe mai multe linii';
+$textSize = 20;
+
+       function printWordWrapped(&$image, $top, $left, $maxWidth, $font, $color, $text, $textSize) {
+               $words = explode(' ', strip_tags($text)); // split the text into an array of single words
+               $line = '';
+               while (count($words) > 0) {
+                       $dimensions = imagettfbbox($textSize, 0, $font, $line.' '.$words[0]);
+                       $lineWidth = $dimensions[2] - $dimensions[0]; // get the length of this line, if the word is to be included
+                       if ($lineWidth > $maxWidth) { // if this makes the text wider that anticipated
+                               $lines[] = $line; // add the line to the others
+                               $line = ''; // empty it (the word will be added outside the loop)
+                               }
+                       $line .= ($line != '' ? ' ' : '').$words[0]; // add the word to the current sentence
+                       $words = array_slice($words, 1); // remove the word from the array
+                       }
+               if ($line != '') { $lines[] = $line; } // add the last line to the others, if it isn't empty
+               $lineHeight = $dimensions[1] - $dimensions[7]; // the height of a single line
+               $height = count($lines) * $lineHeight; // the height of all the lines total
+               // do the actual printing
+               $i = 1;
+               foreach ($lines as $line) {
+                       imagettftext($image, $textSize, 0, $left, $top + $lineHeight * $i, $color, $font, $line);
+                       $i++;
+                       }
+               return $height;
+               }
+               
+printWordWrapped(&$img, $x, $y, $width, $font, $color, $text, $textSize);
+
+imagepng($img); 
+imagedestroy($img);
+?>

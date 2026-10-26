@@ -1,0 +1,43 @@
+<?php
+function printWordWrapped(&$image, $top, $left, $maxWidth, $font, $color, $text, $textSize, $halign="left") {
+$words = explode(' ', strip_tags($text)); // split the text into an array of single words
+$line = '';
+while (count($words) > 0) {
+$dimensions = imagettfbbox($textSize, 0, $font, $line.' '.$words[0]);
+$lineWidth = $dimensions[2] - $dimensions[0]; // get the length of this line, if the word is to be included
+       if ($lineWidth > $maxWidth) { // if this makes the text wider that anticipated
+$lines[] = $line; // add the line to the others
+$line = ''; // empty it (the word will be added outside the loop)
+       }
+       $line .= ($line != '' ? ' ' : '').$words[0]; // add the word to the current sentence
+       //$line .= ' '.$words[0]; // add the word to the current sentence
+       $words = array_slice($words, 1); // remove the word from the array
+   }
+   if ($line != '') { $lines[] = $line; } // add the last line to the others, if it isn't empty
+   $lineHeight = $dimensions[1] - $dimensions[7]; // the height of a single line
+   $height = count($lines) * $lineHeight; // the height of all the lines total
+   // do the actual printing
+   $i = 1;
+//print_R($widths);
+   foreach ($lines as $line) {
+if($halign=="center") {
+//figure out width of line
+$dimensions = imagettfbbox($textSize, 0, $font, $line);
+$lineWidth = $dimensions[2] - $dimensions[0];
+//figure out where the center is.
+$center=floor($maxWidth/2 + $left);
+$leftStart=$center-$lineWidth/2;
+} else if ($halign=="right") {
+//figure out width of line
+$dimensions = imagettfbbox($textSize, 0, $font, $line);
+$lineWidth = $dimensions[2] - $dimensions[0];
+$leftStart=$left+$maxWidth-$lineWidth;
+} else {
+$leftStart=$left;
+} 
+imagettftext($image, $textSize, 0, $leftStart, $top + $lineHeight * $i, $color, $font, $line);
+       $i++;
+}
+return $height;
+}
+?>
